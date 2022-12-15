@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const User = require("./Models/User.js");
 const connectToMongoDB = require("./db.js");
-// const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
@@ -14,11 +14,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
 	session({
-		secret: "Our Little Secret.",
+		secret: process.env.SECRET,
 		resave: false,
 		saveUninitialized: false,
 	})
